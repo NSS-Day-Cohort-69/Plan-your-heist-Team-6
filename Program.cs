@@ -6,9 +6,9 @@ List<TeamMember> teamMembers = new List<TeamMember>()
 
 };
 Console.WriteLine("Plan Your Heist!");
-// Create an option menu
-// First option is to exit app,
-// Second is to add Team Member
+
+
+
 // Add a class to store the Team Member
 // After choosing to add team member, Prompt user to enter a name(string)
 // After that prompt user to enter a skill level 1-5(integer)
@@ -16,13 +16,22 @@ Console.WriteLine("Plan Your Heist!");
 // After all that diplay the information of the team member
 
 
-StoreNewTeamMember(AddName(), AddSkill(), AddCourage());
+CreateTeamLoop();
+DisplayTeamMemberInfo();
 
 string AddName()
 {
     Console.WriteLine("Enter the name of your Team Member: ");
     string name = Console.ReadLine()!.Trim();
-    return name;
+    if (string.IsNullOrWhiteSpace(name))
+    {
+        return null;
+
+    }
+    else
+    {
+        return name;
+    }
 };
 
 int AddSkill()
@@ -44,6 +53,9 @@ decimal AddCourage()
 
 void StoreNewTeamMember(string name, int skillLevel, decimal courageFactor)
 {
+
+
+
     TeamMember newMember = new TeamMember()
     {
         Name = name,
@@ -51,6 +63,26 @@ void StoreNewTeamMember(string name, int skillLevel, decimal courageFactor)
         CourageFactor = courageFactor
     };
     teamMembers.Add(newMember);
+
+
+
+}
+
+void CreateTeamLoop()
+{
+    bool isLooping = true;
+    while (isLooping)
+    {
+        string memberName = AddName();
+        if (memberName == null)
+        {
+            break;
+        }
+        int memberSkill = AddSkill();
+        decimal memberCourage = AddCourage();
+        StoreNewTeamMember(memberName, memberSkill, memberCourage);
+
+    }
 
 }
 
