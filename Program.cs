@@ -12,34 +12,7 @@ Console.WriteLine("Plan Your Heist!");
 // After that prompt the user to enter a Courage Factor(decimal)
 // After all that diplay the information of the team member
 
-
-SetChoice(Menu());
-
-int Menu()
-{
-    int choice = 0;
-    while (choice == 0)
-    {
-        Console.WriteLine(@"Choose an option: 
-                            1. Exit
-                            2. Add Team Member");
-        choice = int.Parse(Console.ReadLine());
-    }
-    return choice;
-  
-}
-
-void SetChoice(int choice)
-{
-    if (choice == 1)
-    {
-        Console.WriteLine("Bye, Don't get caught!");
-    }
-    else if (choice == 2)
-    {
-       StoreNewTeamMember(AddName(), AddSkill(), AddCourage());
-    }
-}
+StoreNewTeamMember(AddName(), AddSkill(), AddCourage());
 
 string AddName()
 {
