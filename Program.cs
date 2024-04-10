@@ -26,7 +26,6 @@ int Menu()
         choice = int.Parse(Console.ReadLine());
     }
     return choice;
-  
 }
 
 void SetChoice(int choice)
@@ -78,3 +77,25 @@ void StoreNewTeamMember(string name, int skillLevel, decimal courageFactor)
 
 // Display Team Member
 //  Name = AddName()
+
+
+
+/* ----PHASE 3----
+Stop displaying each team member's info
+Store a Bank difficulty level = 100 (will be global?)
+function to save sum of team's skill level
+{
+    add up all skills of members, then store it
+}
+function to compare team's skill with bank's difficulty
+{
+    if (team's skill >= bank's difficulty)
+    {
+        display success
+    }
+    else
+    {
+        display fail
+    }
+}
+*/
