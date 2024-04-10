@@ -1,7 +1,10 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System.ComponentModel.Design;
 using System.Reflection.Metadata.Ecma335;
+List<TeamMember> teamMembers = new List<TeamMember>()
+{
 
+};
 Console.WriteLine("Plan Your Heist!");
 // Create an option menu
 // First option is to exit app,
@@ -15,36 +18,44 @@ Console.WriteLine("Plan Your Heist!");
 
 SetChoice(Menu());
 
-int Menu()
+string Menu()
 {
-    int choice = 0;
-    while (choice == 0)
+    string choice = null;
+    while (choice == null)
     {
         Console.WriteLine(@"Choose an option: 
-                            1. Exit
-                            2. Add Team Member");
-        choice = int.Parse(Console.ReadLine());
+                            0. Exit
+                            1. Add Team Member");
+        choice = Console.ReadLine();
     }
     return choice;
-  
+
 }
 
-void SetChoice(int choice)
+void SetChoice(string choice)
 {
-    if (choice == 1)
+    if (choice == "0")
     {
         Console.WriteLine("Bye, Don't get caught!");
     }
-    else if (choice == 2)
-    {
-       StoreNewTeamMember(AddName(), AddSkill(), AddCourage());
-    }
+    else if (choice == "1")
+        while (true)
+        {
+            string name = AddName();
+            if (name == "")
+            {
+                SetChoice(Menu());
+            }
+
+            StoreNewTeamMember(name, AddSkill(), AddCourage());
+            DisplayTeamMemberInfo();
+        }
 }
 
 string AddName()
 {
     Console.WriteLine("Enter the name of your Team Member: ");
-    string name = Console.ReadLine();
+    string name = Console.ReadLine()!.Trim();
     return name;
 };
 
@@ -67,14 +78,28 @@ decimal AddCourage()
 
 void StoreNewTeamMember(string name, int skillLevel, decimal courageFactor)
 {
-    TeamMember newMember = new TeamMember
+    TeamMember newMember = new TeamMember()
     {
         Name = name,
-        SkillLevel= skillLevel,
+        SkillLevel = skillLevel,
         CourageFactor = courageFactor
     };
-    Console.WriteLine($"{newMember.Name}, has a skill level of {newMember.SkillLevel}, and a courage factor as {newMember.CourageFactor}");
+    teamMembers.Add(newMember);
+
+}
+
+void DisplayTeamMemberInfo()
+{
+
+    Console.WriteLine($"You have {teamMembers.Count} members on your team!");
+    foreach (TeamMember member in teamMembers)
+    {
+        Console.WriteLine($"{member.Name} has a skill level of {member.SkillLevel} and a courage factor of {member.CourageFactor}");
+    }
 }
 
 // Display Team Member
 //  Name = AddName()
+
+/*need to create an empty list to hold the new team members
+*/
