@@ -16,41 +16,7 @@ Console.WriteLine("Plan Your Heist!");
 // After all that diplay the information of the team member
 
 
-SetChoice(Menu());
-
-string Menu()
-{
-    string choice = null;
-    while (choice == null)
-    {
-        Console.WriteLine(@"Choose an option: 
-                            0. Exit
-                            1. Add Team Member");
-        choice = Console.ReadLine();
-    }
-    return choice;
-
-}
-
-void SetChoice(string choice)
-{
-    if (choice == "0")
-    {
-        Console.WriteLine("Bye, Don't get caught!");
-    }
-    else if (choice == "1")
-        while (true)
-        {
-            string name = AddName();
-            if (name == "")
-            {
-                SetChoice(Menu());
-            }
-
-            StoreNewTeamMember(name, AddSkill(), AddCourage());
-            DisplayTeamMemberInfo();
-        }
-}
+StoreNewTeamMember(AddName(), AddSkill(), AddCourage());
 
 string AddName()
 {
