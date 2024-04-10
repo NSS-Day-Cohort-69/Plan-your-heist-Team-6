@@ -1,11 +1,14 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System.ComponentModel.Design;
 using System.Reflection.Metadata.Ecma335;
+List<TeamMember> teamMembers = new List<TeamMember>()
+{
 
+};
 Console.WriteLine("Plan Your Heist!");
-// Create an option menu
-// First option is to exit app,
-// Second is to add Team Member
+
+
+
 // Add a class to store the Team Member
 // After choosing to add team member, Prompt user to enter a name(string)
 // After that prompt user to enter a skill level 1-5(integer)
@@ -13,38 +16,22 @@ Console.WriteLine("Plan Your Heist!");
 // After all that diplay the information of the team member
 
 
-SetChoice(Menu());
-
-int Menu()
-{
-    int choice = 0;
-    while (choice == 0)
-    {
-        Console.WriteLine(@"Choose an option: 
-                            1. Exit
-                            2. Add Team Member");
-        choice = int.Parse(Console.ReadLine());
-    }
-    return choice;
-}
-
-void SetChoice(int choice)
-{
-    if (choice == 1)
-    {
-        Console.WriteLine("Bye, Don't get caught!");
-    }
-    else if (choice == 2)
-    {
-       StoreNewTeamMember(AddName(), AddSkill(), AddCourage());
-    }
-}
+CreateTeamLoop();
+DisplayTeamMemberInfo();
 
 string AddName()
 {
     Console.WriteLine("Enter the name of your Team Member: ");
-    string name = Console.ReadLine();
-    return name;
+    string name = Console.ReadLine()!.Trim();
+    if (string.IsNullOrWhiteSpace(name))
+    {
+        return null;
+
+    }
+    else
+    {
+        return name;
+    }
 };
 
 int AddSkill()
@@ -66,13 +53,47 @@ decimal AddCourage()
 
 void StoreNewTeamMember(string name, int skillLevel, decimal courageFactor)
 {
-    TeamMember newMember = new TeamMember
+
+
+
+    TeamMember newMember = new TeamMember()
     {
         Name = name,
-        SkillLevel= skillLevel,
+        SkillLevel = skillLevel,
         CourageFactor = courageFactor
     };
-    Console.WriteLine($"{newMember.Name}, has a skill level of {newMember.SkillLevel}, and a courage factor as {newMember.CourageFactor}");
+    teamMembers.Add(newMember);
+
+
+
+}
+
+void CreateTeamLoop()
+{
+    bool isLooping = true;
+    while (isLooping)
+    {
+        string memberName = AddName();
+        if (memberName == null)
+        {
+            break;
+        }
+        int memberSkill = AddSkill();
+        decimal memberCourage = AddCourage();
+        StoreNewTeamMember(memberName, memberSkill, memberCourage);
+
+    }
+
+}
+
+void DisplayTeamMemberInfo()
+{
+
+    Console.WriteLine($"You have {teamMembers.Count} members on your team!");
+    foreach (TeamMember member in teamMembers)
+    {
+        Console.WriteLine($"{member.Name} has a skill level of {member.SkillLevel} and a courage factor of {member.CourageFactor}");
+    }
 }
 
 // Display Team Member
@@ -98,4 +119,7 @@ function to compare team's skill with bank's difficulty
         display fail
     }
 }
+*/
+
+/*need to create an empty list to hold the new team members
 */
