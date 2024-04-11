@@ -17,16 +17,27 @@ Console.WriteLine("Plan Your Heist!");
 // Create a random number bewtween -10 and 10 for heist luck value
 // Create a function that adds luck value to bank difficulty
 // Before display success/fail message, show the team combined skill level and bank difficulty.
-Random random = new Random();
-int LuckValue = random.Next(-10, 11);
+
+
+
 
 int BankLevel = 100;
+int LuckValue = RandomLuckValue();
 int BankLevelWithLuck = BankLevelLuck(BankLevel, LuckValue);
 Console.WriteLine(LuckValue);
 Console.WriteLine(BankLevelWithLuck);
 CreateTeamLoop();
-Report(BankLevelWithLuck, SumOfTeamSkillLevels());
-CompareTeamSkillToBankDifficulty(SumOfTeamSkillLevels(), BankLevelWithLuck);
+int ChosenTrialRuns = ChooseNumberOfTrialRuns();
+
+// loops thru for each ChosenTrailRuns and displays the report for each run and chooses a new random luck number each time
+for (int trialRuns = 0; trialRuns < ChosenTrialRuns; trialRuns++)
+{
+    int newLuckValue = RandomLuckValue();// is setting a new random luck value (-10 ,10) 
+    BankLevelWithLuck = BankLevelLuck(BankLevel, newLuckValue); // setting the new banklevel with the random luck value
+    Report(BankLevelWithLuck, SumOfTeamSkillLevels());// displays the report
+    CompareTeamSkillToBankDifficulty(SumOfTeamSkillLevels(), BankLevelWithLuck);// displaying the success/failed messages
+
+}
 string AddName()
 {
     Console.WriteLine("Enter the name of your Team Member: ");
@@ -93,42 +104,6 @@ void CreateTeamLoop()
     }
 
 }
-
-void Report(int BankLevel, int TotalTeamSkill)
-{
-    Console.WriteLine($"The total skill level of the team is : {TotalTeamSkill}");
-    Console.WriteLine($"The bank difficulty level is: {BankLevel}");
-}
-
-int SumOfTeamSkillLevels()
-{
-    int sum = 0;
-    foreach (TeamMember member in teamMembers)
-    {
-        sum += member.SkillLevel;
-    }
-    return sum;
-};
-
-void CompareTeamSkillToBankDifficulty(int sum, int bankLevel)
-{
-    if (sum >= bankLevel)
-    {
-        Console.WriteLine("Success! You won't get arrested! :)");
-    }
-    else
-    {
-        Console.WriteLine("Don't do this mission, you will FAIL :(");
-    }
-}
-
-int BankLevelLuck(int BankLevel, int LuckValue)
-{
-    int Luck = BankLevel + LuckValue;
-
-    return Luck;
-}
-
 // Display Team Member
 //  Name = AddName()
 
@@ -155,3 +130,62 @@ function to compare team's skill with bank's difficulty
     }
 }
 */
+
+void Report(int BankLevel, int TotalTeamSkill)
+{
+    Console.WriteLine($"The total skill level of the team is : {TotalTeamSkill}");
+    Console.WriteLine($"The bank difficulty level is: {BankLevel}");
+}
+
+int SumOfTeamSkillLevels()
+{
+    int sum = 0;
+    foreach (TeamMember member in teamMembers)
+    {
+        sum += member.SkillLevel;
+    }
+    return sum;
+};
+
+void CompareTeamSkillToBankDifficulty(int sum, int bankLevel)
+{
+    // Console.WriteLine(sum);
+    // Console.WriteLine(bankLevel);
+    if (sum >= bankLevel)
+    {
+        Console.WriteLine("Success! You won't get arrested! :)");
+    }
+    else
+    {
+        Console.WriteLine("Don't do this mission, you will FAIL :(");
+    }
+}
+
+int BankLevelLuck(int BankLevel, int LuckValue)
+{
+    int Luck = BankLevel + LuckValue;
+
+    return Luck;
+}
+
+int ChooseNumberOfTrialRuns()
+{
+    Console.WriteLine("Please enter the amount of trial runs you would like to attempt");
+    int ChosenNumberOfTrialRuns = int.Parse(Console.ReadLine()!.Trim());
+    return ChosenNumberOfTrialRuns;
+}
+
+int RandomLuckValue()
+{
+    Random random = new Random();
+    int RandomLuck = random.Next(-10, 11);
+    return RandomLuck;
+}
+/*int trialruns = 0
+ while(chosentrilruns < trailruns )
+    {
+        difficulty/skill level
+        trialruns++
+        loop stops once trialruns = chosentrialruns
+    }*/
+
