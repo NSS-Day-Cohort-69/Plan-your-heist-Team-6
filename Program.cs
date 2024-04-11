@@ -14,11 +14,19 @@ Console.WriteLine("Plan Your Heist!");
 // After that prompt user to enter a skill level 1-5(integer)
 // After that prompt the user to enter a Courage Factor(decimal)
 // After all that display the information of the team member
+// Create a random number bewtween -10 and 10 for heist luck value
+// Create a function that adds luck value to bank difficulty
+// Before display success/fail message, show the team combined skill level and bank difficulty.
+Random random = new Random();
+int LuckValue = random.Next(-10, 11);
+
 int BankLevel = 100;
-
+int BankLevelWithLuck = BankLevelLuck(BankLevel, LuckValue);
+Console.WriteLine(LuckValue);
+Console.WriteLine(BankLevelWithLuck);
 CreateTeamLoop();
-CompareTeamSkillToBankDifficulty(SumOfTeamSkillLevels(), BankLevel);
-
+Report(BankLevelWithLuck, SumOfTeamSkillLevels());
+CompareTeamSkillToBankDifficulty(SumOfTeamSkillLevels(), BankLevelWithLuck);
 string AddName()
 {
     Console.WriteLine("Enter the name of your Team Member: ");
@@ -86,14 +94,10 @@ void CreateTeamLoop()
 
 }
 
-void DisplayTeamMemberInfo()
+void Report(int BankLevel, int TotalTeamSkill)
 {
-
-    Console.WriteLine($"You have {teamMembers.Count} members on your team!");
-    foreach (TeamMember member in teamMembers)
-    {
-        Console.WriteLine($"{member.Name} has a skill level of {member.SkillLevel} and a courage factor of {member.CourageFactor}");
-    }
+    Console.WriteLine($"The total skill level of the team is : {TotalTeamSkill}");
+    Console.WriteLine($"The bank difficulty level is: {BankLevel}");
 }
 
 int SumOfTeamSkillLevels()
@@ -116,6 +120,13 @@ void CompareTeamSkillToBankDifficulty(int sum, int bankLevel)
     {
         Console.WriteLine("Don't do this mission, you will FAIL :(");
     }
+}
+
+int BankLevelLuck(int BankLevel, int LuckValue)
+{
+    int Luck = BankLevel + LuckValue;
+
+    return Luck;
 }
 
 // Display Team Member
