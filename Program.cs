@@ -13,11 +13,11 @@ Console.WriteLine("Plan Your Heist!");
 // After choosing to add team member, Prompt user to enter a name(string)
 // After that prompt user to enter a skill level 1-5(integer)
 // After that prompt the user to enter a Courage Factor(decimal)
-// After all that diplay the information of the team member
-
+// After all that display the information of the team member
+int BankLevel = 100;
 
 CreateTeamLoop();
-DisplayTeamMemberInfo();
+CompareTeamSkillToBankDifficulty(SumOfTeamSkillLevels(), BankLevel);
 
 string AddName()
 {
@@ -36,7 +36,7 @@ string AddName()
 
 int AddSkill()
 {
-    Console.WriteLine("What is their skill level(1-5): ");
+    Console.WriteLine("What is their skill level(1-35): ");
     int skillLevel = int.Parse(Console.ReadLine());
     return skillLevel;
 
@@ -96,8 +96,51 @@ void DisplayTeamMemberInfo()
     }
 }
 
+int SumOfTeamSkillLevels()
+{
+    int sum = 0;
+    foreach (TeamMember member in teamMembers)
+    {
+        sum += member.SkillLevel;
+    }
+    return sum;
+};
+
+void CompareTeamSkillToBankDifficulty(int sum, int bankLevel)
+{
+    if (sum >= bankLevel)
+    {
+        Console.WriteLine("Success! You won't get arrested! :)");
+    }
+    else
+    {
+        Console.WriteLine("Don't do this mission, you will FAIL :(");
+    }
+}
+
 // Display Team Member
 //  Name = AddName()
 
+
 /*need to create an empty list to hold the new team members
+*/
+
+/* ----PHASE 3----
+Stop displaying each team member's info
+Store a Bank difficulty level = 100 (will be global?)
+function to save sum of team's skill level
+{
+    add up all skills of members, then store it
+}
+function to compare team's skill with bank's difficulty
+{
+    if (team's skill >= bank's difficulty)
+    {
+        display success
+    }
+    else
+    {
+        display fail
+    }
+}
 */
